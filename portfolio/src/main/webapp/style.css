@@ -1,3 +1,4 @@
+/* Animates slight flickering red and blue shadow around text to emulate old CRT screen */
 @keyframes textShadow {
   0% {
     text-shadow: 0.4389924193300864px 0 1px rgba(0,30,255,0.5), -0.4389924193300864px 0 1px rgba(255,0,80,0.3), 0 0 3px;
