@@ -73,7 +73,8 @@
                 90deg, 
               rgba(255, 0, 0, 0.06), 
               rgba(0, 255, 0, 0.02), 
-              rgba(0, 0, 255, 0.06));
+              rgba(0, 0, 255, 0.06))
+              fixed;
   background-size: 100% 5px, 6px 100%;
   bottom: 0;
   content: " ";
@@ -86,19 +87,19 @@
 }
 
 .content {
-  animation: textShadow 1.6s infinite;
-  color: white;
-  font: 1.7rem Inconsolata, monospace;
   margin: 10vh auto;
   width: 70vw;
   z-index: 0;
 }
 
-p {
+.content > p {
+  animation: textShadow 1.6s infinite;
+  color: white;
+  font: 1.7rem Inconsolata, monospace;
   margin: 0;
 }
 
-a {
+.content > a {
   color: white;
   font-style: italic;
 }
