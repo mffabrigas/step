@@ -87,19 +87,19 @@
 }
 
 .content {
+  animation: textShadow 1.6s infinite;
+  color: white;
+  font: 1.7rem Inconsolata, monospace;
   margin: 10vh auto;
   width: 70vw;
   z-index: 0;
 }
 
-.content > p {
-  animation: textShadow 1.6s infinite;
-  color: white;
-  font: 1.7rem Inconsolata, monospace;
+.content p {
   margin: 0;
 }
 
-.content > a {
+.content a {
   color: white;
   font-style: italic;
 }
