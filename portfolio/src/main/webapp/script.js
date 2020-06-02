@@ -25,3 +25,25 @@ setInterval(() => {
   }
 }, speed);
 
+function getGreeting() {
+  console.log('Fetching greeting');
+
+  const greetingPromise = fetch('/data');
+
+  greetingPromise.then(responseHandler);
+}
+
+function responseHandler(response) {
+  console.log('Handling response');
+
+  const textPromise = response.text();
+
+  textPromise.then(addGreetingToDom);
+}
+
+function addGreetingToDom(greeting) {
+  console.log('Displaying greeting');
+
+  const greetingContainer = document.getElementById('greeting');
+  greetingContainer.innerHTML = greeting;
+}
