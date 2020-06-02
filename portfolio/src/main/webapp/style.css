@@ -92,15 +92,14 @@
   z-index: 0;
 }
 
-.content > p {
+.content * {
   animation: textShadow 1.6s infinite;
   color: white;
   font: 1.7rem Inconsolata, monospace;
   margin: 0;
 }
 
-.content > a {
-  color: white;
+.content a {
   font-style: italic;
 }
 
