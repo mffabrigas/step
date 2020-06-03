@@ -25,3 +25,25 @@ setInterval(() => {
   }
 }, speed);
 
+function getGreeting() {
+  const greetingPromise = fetch('/data');
+
+  greetingPromise.then(responseHandler);
+}
+
+/**
+ * @param {Promise} response A Promise from the servlet to get a greeting
+ */
+function responseHandler(response) {
+  const textPromise = response.text();
+
+  textPromise.then(addGreetingToDom);
+}
+
+/**
+ * @param {String} greeting parsed greeting from original Promise
+ */
+function addGreetingToDom(greeting) {
+  const greetingContainer = document.getElementById('greeting');
+  greetingContainer.innerHTML = greeting;
+}
