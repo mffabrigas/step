@@ -37,8 +37,6 @@ function getGreeting() {
 function responseHandler(response) {
   const textPromise = response.json();
 
-  console.log(textPromise);
-
   textPromise.then(addGreetingToDom);
 }
 
@@ -47,13 +45,12 @@ function responseHandler(response) {
  */
 function addGreetingToDom(greeting) {
   const greetingContainer = document.getElementById('greeting');
+  
   greetingContainer.innerText = '';
-  greetingContainer.appendChild(
-    createListElement(greeting[0]));
-  greetingContainer.appendChild(
-    createListElement(greeting[1]));
-  greetingContainer.appendChild(
-    createListElement(greeting[2]));
+  for(let i = 0; i < greeting.length; i++) {
+    greetingContainer.appendChild(
+      createListElement(greeting[i]));
+  }
 }
 
 /**
