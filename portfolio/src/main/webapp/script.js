@@ -32,18 +32,32 @@ function getGreeting() {
 }
 
 /**
- * @param {Promise} response A Promise from the servlet to get a greeting
+ * @param {Promise} response A Promise from the servlet to get a JSON
  */
 function responseHandler(response) {
-  const textPromise = response.text();
+  const textPromise = response.json();
 
   textPromise.then(addGreetingToDom);
 }
 
 /**
- * @param {String} greeting parsed greeting from original Promise
+ * @param {JSON} greeting parsed JSON from original Promise
  */
 function addGreetingToDom(greeting) {
   const greetingContainer = document.getElementById('greeting');
-  greetingContainer.innerHTML = greeting;
+  
+  greetingContainer.innerText = '';
+  for(let i = 0; i < greeting.length; i++) {
+    greetingContainer.appendChild(
+      createListElement(greeting[i]));
+  }
+}
+
+/**
+ * @param {String} text text to put into a list element
+ */
+function createListElement(text) {
+  const listElement = document.createElement('li');
+  listElement.innerText = text;
+  return listElement;
 }
