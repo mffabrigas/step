@@ -25,10 +25,10 @@ setInterval(() => {
   }
 }, speed);
 
-function getGreeting() {
-  const greetingPromise = fetch('/data');
+function getComments() {
+  const commentsPromise = fetch('/data');
 
-  greetingPromise.then(responseHandler);
+  commentsPromise.then(responseHandler);
 }
 
 /**
@@ -37,19 +37,19 @@ function getGreeting() {
 function responseHandler(response) {
   const textPromise = response.json();
 
-  textPromise.then(addGreetingToDom);
+  textPromise.then(addCommentsToDom);
 }
 
 /**
- * @param {JSON} greeting parsed JSON from original Promise
+ * @param {JSON} comments parsed JSON from original Promise
  */
-function addGreetingToDom(greeting) {
-  const greetingContainer = document.getElementById('greeting');
+function addCommentsToDom(comments) {
+  const commentsContainer = document.getElementById('comments');
   
-  greetingContainer.innerText = '';
-  for(let i = 0; i < greeting.length; i++) {
-    greetingContainer.appendChild(
-      createListElement(greeting[i]));
+  commentsContainer.innerText = '';
+  for(let i = 0; i < comments.length; i++) {
+    commentsContainer.appendChild(
+      createListElement(comments[i]));
   }
 }
 
