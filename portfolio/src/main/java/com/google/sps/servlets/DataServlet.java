@@ -33,7 +33,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  List<String> demoComments = new ArrayList<String>();
+  private String commentText;
+  private long commentTime;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -56,8 +57,8 @@ public class DataServlet extends HttpServlet {
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String commentText = request.getParameter("comment");
-    long commentTime = System.currentTimeMillis();
+    commentText = request.getParameter("comment");
+    commentTime = System.currentTimeMillis();
 
     Entity commentEntity = new Entity("comment");
     commentEntity.setProperty("content", commentText);
