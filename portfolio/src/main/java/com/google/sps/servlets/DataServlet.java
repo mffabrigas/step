@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private List<String> demoComments = new ArrayList<String>();
+  List<String> demoComments = new ArrayList<String>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -42,6 +42,7 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
+    List<String> demoComments = new ArrayList<String>();
     for(Entity entity : results.asIterable()) {
       String content = (String) entity.getProperty("content");
       demoComments.add(content);

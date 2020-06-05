@@ -46,7 +46,6 @@ function responseHandler(response) {
 function addCommentsToDom(comments) {
   const commentsContainer = document.getElementById('comments');
   
-  commentsContainer.innerText = '';
   for(let i = 0; i < comments.length; i++) {
     commentsContainer.appendChild(
       createListElement(comments[i]));
