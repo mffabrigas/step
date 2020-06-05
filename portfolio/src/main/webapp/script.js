@@ -44,7 +44,7 @@ function responseHandler(response) {
  * @param {JSON} comments parsed JSON from original Promise
  */
 function addCommentsToDom(comments) {
-  const commentsContainer = document.getElementById('comments');
+  const commentsContainer = document.getElementById('comment-section');
   
   for(let i = 0; i < comments.length; i++) {
     commentsContainer.appendChild(
