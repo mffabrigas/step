@@ -17,10 +17,13 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +33,22 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private List<String> demoComments = new ArrayList<String>();
+  private static final String CONTENT_TEXT_PROPERTY_NAME ="content";
+  private static final String TIMESTAMP_TEXT_PROPERTY_NAME = "timestamp";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Query query = new Query("comment").addSort(TIMESTAMP_TEXT_PROPERTY_NAME, SortDirection.DESCENDING);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<String> demoComments = new ArrayList<String>();
+    for(Entity entity : results.asIterable()) {
+      String commentContent = (String) entity.getProperty(CONTENT_TEXT_PROPERTY_NAME);
+      demoComments.add(commentContent);
+    }
+
     Gson gson = new Gson();
     String json = gson.toJson(demoComments);
     
@@ -42,11 +57,12 @@ public class DataServlet extends HttpServlet {
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String commentText = request.getParameter("comment");
-    demoComments.add(commentText);
+    String commentText = request.getParameter("write-comment");
+    long commentTime = System.currentTimeMillis();
 
     Entity commentEntity = new Entity("comment");
-    commentEntity.setProperty("content", commentText);
+    commentEntity.setProperty(CONTENT_TEXT_PROPERTY_NAME, commentText);
+    commentEntity.setProperty(TIMESTAMP_TEXT_PROPERTY_NAME, commentTime);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
