@@ -35,10 +35,11 @@ public class DataServlet extends HttpServlet {
 
   private static final String CONTENT_TEXT_PROPERTY_NAME ="content";
   private static final String TIMESTAMP_TEXT_PROPERTY_NAME = "timestamp";
+  private static final int MAX_COMMENTS = 10;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    int numCommentsDisplayed = Integer.parseInt(request.getParameter("numCommentsDisplayed"));
+    int numCommentsDisplayed = getNumCommentsDisplayed(request);
 
     Query query = new Query("comment").addSort(TIMESTAMP_TEXT_PROPERTY_NAME, SortDirection.DESCENDING);
 
@@ -74,5 +75,24 @@ public class DataServlet extends HttpServlet {
     datastore.put(commentEntity);
     
     response.sendRedirect("/index.html");
+  }
+
+  private int getNumCommentsDisplayed(HttpServletRequest request) {
+    String numCommentsDisplayedString = request.getParameter("numCommentsDisplayed");
+
+    int numCommentsDisplayed;
+    try {
+      numCommentsDisplayed = Integer.parseInt(numCommentsDisplayedString);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + numCommentsDisplayedString);
+      return MAX_COMMENTS;
+    }
+
+    if (numCommentsDisplayed < 1 || numCommentsDisplayed > 10) {
+      System.err.println("Player choice is out of range: " + numCommentsDisplayedString);
+      return MAX_COMMENTS;
+    }
+
+    return numCommentsDisplayed;
   }
 }
