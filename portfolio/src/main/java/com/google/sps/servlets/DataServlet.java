@@ -38,6 +38,8 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    int numCommentsDisplayed = Integer.parseInt(request.getParameter("numCommentsDisplayed"));
+
     Query query = new Query("comment").addSort(TIMESTAMP_TEXT_PROPERTY_NAME, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -47,6 +49,10 @@ public class DataServlet extends HttpServlet {
     for(Entity entity : results.asIterable()) {
       String commentContent = (String) entity.getProperty(CONTENT_TEXT_PROPERTY_NAME);
       demoComments.add(commentContent);
+
+      if(demoComments.size() == numCommentsDisplayed)  {
+        break;
+      }
     }
 
     Gson gson = new Gson();
