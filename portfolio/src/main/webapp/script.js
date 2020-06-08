@@ -25,31 +25,13 @@ setInterval(() => {
   }
 }, speed);
 
-function getComments() {
-  const commentsPromise = fetch('/data');
-
-  commentsPromise.then(responseHandler);
-}
-
-/**
- * @param {Promise} response A Promise from the servlet to get a JSON
- */
-function responseHandler(response) {
-  const textPromise = response.json();
-
-  textPromise.then(addCommentsToDom);
-}
-
-/**
- * @param {JSON} comments parsed JSON from original Promise
- */
-function addCommentsToDom(comments) {
-  const commentsContainer = document.getElementById('comment-section');
-  
-  for(let i = 0; i < comments.length; i++) {
-    commentsContainer.appendChild(
-      createListElement(comments[i]));
-  }
+function loadComments() {
+  fetch('/data').then(response => response.json()).then((commentList) => {
+    const commentsContainer = document.getElementById('comment-section');
+    commentList.forEach((comment) => {
+      commentsContainer.appendChild(createListElement(comment));
+    })
+  });
 }
 
 /**
