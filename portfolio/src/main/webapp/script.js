@@ -14,6 +14,7 @@
 
 let cursor = true;
 const speed = 250;
+const MAX_COMMENTS = 10;
 
 setInterval(() => {
   if(cursor) {
@@ -29,6 +30,11 @@ setInterval(() => {
  * @param {number} numCommentsDisplayed number of comments to display
  */
 function loadComments(numCommentsDisplayed) {
+  if(numCommentsDisplayed === undefined) {
+    numCommentsDisplayed = MAX_COMMENTS;
+    console.log(numCommentsDisplayed);
+  }
+
   fetch('/data?numCommentsDisplayed=' + numCommentsDisplayed).then(response => response.json()).then((commentList) => {
     const commentsContainer = document.getElementById('comment-section');
     commentsContainer.innerHTML = '';

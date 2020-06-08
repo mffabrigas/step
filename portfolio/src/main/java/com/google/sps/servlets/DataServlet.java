@@ -43,7 +43,7 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("comment").addSort(TIMESTAMP_TEXT_PROPERTY_NAME, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query).;
+    PreparedQuery results = datastore.prepare(query);
 
     List<String> demoComments = new ArrayList<String>();
     for(Entity entity : results.asIterable()) {
