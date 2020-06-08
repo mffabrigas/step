@@ -32,7 +32,6 @@ setInterval(() => {
 function loadComments(numCommentsDisplayed) {
   if(numCommentsDisplayed === undefined) {
     numCommentsDisplayed = MAX_COMMENTS;
-    console.log(numCommentsDisplayed);
   }
 
   fetch('/data?numCommentsDisplayed=' + numCommentsDisplayed).then(response => response.json()).then((commentList) => {
