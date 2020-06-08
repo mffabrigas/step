@@ -25,9 +25,13 @@ setInterval(() => {
   }
 }, speed);
 
-function loadComments() {
-  fetch('/data').then(response => response.json()).then((commentList) => {
+/**
+ * @param {number} numCommentsDisplayed number of comments to display
+ */
+function loadComments(numCommentsDisplayed) {
+  fetch('/data?numCommentsDisplayed=' + numCommentsDisplayed).then(response => response.json()).then((commentList) => {
     const commentsContainer = document.getElementById('comment-section');
+    commentsContainer.innerHTML = '';
     commentList.forEach((comment) => {
       commentsContainer.appendChild(createListElement(comment));
     })
