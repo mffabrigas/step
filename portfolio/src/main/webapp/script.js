@@ -14,6 +14,8 @@
 
 const SPEED = 250;
 const MAX_COMMENTS = 10;
+const GOOGLE_MTV_LAT = 37.4220041;
+const GOOGLE_MTV_LNG = -122.0862515;
 
 let cursor = true;
 
@@ -35,7 +37,7 @@ function start() {
 function createMap() {
   const map = new google.maps.Map(
     document.getElementById('map'), 
-    {center: {lat: 37.4220041, lng: -122.0862515}, zoom: 15});
+    {center: {lat: GOOGLE_MTV_LAT, lng: GOOGLE_MTV_LNG}, zoom: 15});
 }
 
 /**
