@@ -13,7 +13,7 @@
 // limitations under the License.
 
 let cursor = true;
-const speed = 250;
+const SPEED = 250;
 const MAX_COMMENTS = 10;
 
 setInterval(() => {
@@ -24,7 +24,7 @@ setInterval(() => {
     document.getElementById('cursor').style.opacity = 1;
     cursor = true;
   }
-}, speed);
+}, SPEED);
 
 /**
  * @param {number} numCommentsDisplayed number of comments to display
@@ -41,6 +41,11 @@ function loadComments(numCommentsDisplayed) {
       commentsContainer.appendChild(createListElement(comment));
     })
   });
+}
+
+function deleteAllComments() {
+  const deleteCommentsRequest = new Request('/delete-data', {method: 'POST'});
+  fetch(deleteCommentsRequest).then(response => loadComments());
 }
 
 /**

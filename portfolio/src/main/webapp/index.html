@@ -37,7 +37,9 @@
       <ul id="comment-section"></ul>
 
       <p> > Select number of comments to display (between 1-10)</p>
-      <input type="number" name="num-comments" min=1 max=10 onchange="loadComments(this.value)">  
+      <input type="number" name="num-comments" min=1 max=10 onchange="loadComments(this.value)"><br>
+
+      <button onclick="deleteAllComments()">Delete all comments</button>  
     </div>
   </body>
 </html>
