@@ -12,9 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-let cursor = true;
 const SPEED = 250;
 const MAX_COMMENTS = 10;
+
+let cursor = true;
 
 setInterval(() => {
   if(cursor) {
@@ -25,6 +26,17 @@ setInterval(() => {
     cursor = true;
   }
 }, SPEED);
+
+function start() {
+  loadComments();
+  createMap();
+}
+
+function createMap() {
+  const map = new google.maps.Map(
+    document.getElementById('map'), 
+    {center: {lat: 37.4220041, lng: -122.0862515}, zoom: 15});
+}
 
 /**
  * @param {number} numCommentsDisplayed number of comments to display

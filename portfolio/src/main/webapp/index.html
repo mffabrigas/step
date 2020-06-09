@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Miguel Fabrigas</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNsFRB5UFiW3Atam7bg32K_Dn47t4if0k"></script>
     <script src="script.js"></script>
   </head>
-  <body onload="loadComments()">
+  <body onload="start();">
     <div class="crt"></div>
     <div class="content">
       <p> > Welcome!<span id="cursor">|</span></p>
@@ -37,9 +38,10 @@
       <ul id="comment-section"></ul>
 
       <p> > Select number of comments to display (between 1-10)</p>
-      <input type="number" name="num-comments" min=1 max=10 onchange="loadComments(this.value)"><br>
+      <input type="number" name="num-comments" min=1 max=10 onchange="loadComments(this.value);"><br>
 
-      <button onclick="deleteAllComments()">Delete all comments</button>  
+      <button onclick="deleteAllComments();">Delete all comments</button> 
     </div>
+    <div id="map"></div>
   </body>
 </html>
