@@ -119,26 +119,22 @@ function initMap() {
   map.mapTypes.set('dark_mode', darkModeMap);
   map.setMapTypeId('dark_mode');
 
-  const trexMarker = new google.maps.Marker({
-    position: GOOGLE_MTV,
-    map: map,
-    title: 'One day...'
-  });
+  createMarker(map, GOOGLE_MTV, 'One day...');
 }
 
 /**
  * @param {Object} map Map object created from Google Maps API
- * @param {Object} postion object that contains lat and lng coords for marker
+ * @param {Object} position object that contains lat and lng coords for marker
  * @param {String} title string that describes the location
-
-function createMarker(map, postion, title) {
-  const marker = new google.maps.Marker({
-    postion: postion,
+*/
+function createMarker(map, position, title) {
+  const trexMarker = new google.maps.Marker({
+    position: position,
     map: map,
     title: title
   });
 }
-*/
+
 
 /**
  * @param {number} numCommentsDisplayed number of comments to display
