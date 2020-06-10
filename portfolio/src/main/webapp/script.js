@@ -128,13 +128,12 @@ function initMap() {
  * @param {String} title string that describes the location
 */
 function createMarker(map, position, title) {
-  const trexMarker = new google.maps.Marker({
+  const marker = new google.maps.Marker({
     position: position,
     map: map,
     title: title
   });
 }
-
 
 /**
  * @param {number} numCommentsDisplayed number of comments to display
@@ -148,7 +147,7 @@ function loadComments(numCommentsDisplayed) {
     const commentsContainer = document.getElementById('comment-section');
     commentsContainer.innerHTML = '';
     commentList.forEach((comment) => {
-      commentsContainer.appendChild(createListElement(comment));
+      commentsContainer.appendChild(createCommentElement(comment));
     })
   });
 }
@@ -161,9 +160,9 @@ function deleteAllComments() {
 /**
  * @param {String} text text to put into a list element
  */
-function createListElement(text) {
-  const listElement = document.createElement('li');
-  listElement.innerText = text;
+function createCommentElement(text) {
+  const listElement = document.createElement('p');
+  listElement.innerText = '> ' + text;
   return listElement;
 }
 
