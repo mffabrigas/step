@@ -14,8 +14,7 @@
 
 const SPEED = 250;
 const MAX_COMMENTS = 10;
-const GOOGLE_MTV_LAT = 37.4220041;
-const GOOGLE_MTV_LNG = -122.0862515;
+const GOOGLE_MTV = {lat: 37.4220041, lng: -122.0862515};
 
 let cursor = true;
 let darkModeMap = new google.maps.StyledMapType(
@@ -109,7 +108,7 @@ function start() {
 function createMap() {
   const map = new google.maps.Map(
     document.getElementById('map'), {
-      center: {lat: GOOGLE_MTV_LAT, lng: GOOGLE_MTV_LNG}, 
+      center: GOOGLE_MTV, 
       zoom: 15,
       mapTypeControlOptions: {
         mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain','dark_mode']
