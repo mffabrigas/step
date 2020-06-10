@@ -102,10 +102,10 @@ let darkModeMap = new google.maps.StyledMapType(
 
 function start() {
   loadComments();
-  createMap();
+  initMap();
 }
 
-function createMap() {
+function initMap() {
   const map = new google.maps.Map(
     document.getElementById('map'), {
       center: GOOGLE_MTV, 
@@ -113,11 +113,32 @@ function createMap() {
       mapTypeControlOptions: {
         mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain','dark_mode']
       }
-    });
+    }
+  );
 
   map.mapTypes.set('dark_mode', darkModeMap);
   map.setMapTypeId('dark_mode');
+
+  const trexMarker = new google.maps.Marker({
+    position: GOOGLE_MTV,
+    map: map,
+    title: 'One day...'
+  });
 }
+
+/**
+ * @param {Object} map Map object created from Google Maps API
+ * @param {Object} postion object that contains lat and lng coords for marker
+ * @param {String} title string that describes the location
+
+function createMarker(map, postion, title) {
+  const marker = new google.maps.Marker({
+    postion: postion,
+    map: map,
+    title: title
+  });
+}
+*/
 
 /**
  * @param {number} numCommentsDisplayed number of comments to display
