@@ -158,7 +158,7 @@ function deleteAllComments() {
 }
 
 /**
- * @param {String} text text to put into a list element
+ * @param {String} text text to put into a comment element
  */
 function createCommentElement(text) {
   const listElement = document.createElement('p');
