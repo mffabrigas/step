@@ -102,10 +102,10 @@ let darkModeMap = new google.maps.StyledMapType(
 
 function start() {
   loadComments();
-  createMap();
+  initMap();
 }
 
-function createMap() {
+function initMap() {
   const map = new google.maps.Map(
     document.getElementById('map'), {
       center: GOOGLE_MTV, 
@@ -113,10 +113,26 @@ function createMap() {
       mapTypeControlOptions: {
         mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain','dark_mode']
       }
-    });
+    }
+  );
 
   map.mapTypes.set('dark_mode', darkModeMap);
   map.setMapTypeId('dark_mode');
+
+  createMarker(map, GOOGLE_MTV, 'One day...');
+}
+
+/**
+ * @param {Object} map Map object created from Google Maps API
+ * @param {Object} position object that contains lat and lng coords for marker
+ * @param {String} title string that describes the location
+*/
+function createMarker(map, position, title) {
+  const marker = new google.maps.Marker({
+    position: position,
+    map: map,
+    title: title
+  });
 }
 
 /**
@@ -131,7 +147,7 @@ function loadComments(numCommentsDisplayed) {
     const commentsContainer = document.getElementById('comment-section');
     commentsContainer.innerHTML = '';
     commentList.forEach((comment) => {
-      commentsContainer.appendChild(createListElement(comment));
+      commentsContainer.appendChild(createCommentElement(comment));
     })
   });
 }
@@ -142,11 +158,11 @@ function deleteAllComments() {
 }
 
 /**
- * @param {String} text text to put into a list element
+ * @param {String} text text to put into a comment element
  */
-function createListElement(text) {
-  const listElement = document.createElement('li');
-  listElement.innerText = text;
+function createCommentElement(text) {
+  const listElement = document.createElement('p');
+  listElement.innerText = '> ' + text;
   return listElement;
 }
 
