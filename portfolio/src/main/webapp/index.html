@@ -9,7 +9,7 @@
   </head>
   <body onload="start();">
     <div class="crt"></div>
-    <div class="content">
+    <div class="intro">
       <p> > Welcome!<span id="cursor">|</span></p>
       <p> > I'm Miguel, your future SWE.</p>
       <p> > I'm a rising sophomore at UTSA majoring in CS.</p>
@@ -28,20 +28,22 @@
       <p> > |_ Javascript</p>
       <p> ></p>
       <p> > Click <a href="http://www.linkedin.com/in/miguelfabrigas">here</a> to see my resume</p>
-
-      <form action="/data" method="POST">
-        <p> > Write a comment</p>
-        <input type="text" name="write-comment"><br>
-        <input type="submit">
-      </form>
-
-      <div id="comment-section"></div>
-
-      <p> > Select number of comments to display (between 1-10)</p>
-      <input type="number" name="num-comments" min=1 max=10 onchange="loadComments(this.value);"><br>
-
-      <button onclick="deleteAllComments();">Delete all comments</button> 
     </div>
+    <div class="comment-section">
+        <form action="/data" method="POST">
+          <p> > Write a comment</p>
+          <span> > </span><input type="text" name="write-comment"><br>
+          <span> > </span><input type="submit">
+        </form>
+
+        <p> > Select number of comments to display (between 1-10)</p>
+        <span> > </span><input type="number" name="num-comments" min=1 max=10 onchange="loadComments(this.value);"><br>
+
+        <span> > </span><button onclick="deleteAllComments();">Delete all comments</button> 
+
+        <p> ></p>
+        <div id = "comments"></div>
+      </div>
     <div id="map"></div>
   </body>
 </html>
