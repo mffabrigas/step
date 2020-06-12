@@ -108,7 +108,7 @@
 .comment-section {
   animation: textShadow 1.6s infinite;
   color: white;
-  /*display: none;*/
+  display: none;
   font: 1.7rem Inconsolata, monospace;
   margin: 10vh auto;
   position: relative;
