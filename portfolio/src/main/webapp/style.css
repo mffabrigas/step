@@ -86,7 +86,7 @@
   pointer-events: none;
 }
 
-.content {
+.intro {
   animation: textShadow 1.6s infinite;
   color: white;
   font: 1.7rem Inconsolata, monospace;
@@ -96,13 +96,28 @@
   z-index: 0;
 }
 
-.content p {
+.intro p {
   margin: 0;
 }
 
-.content a {
+.intro a {
   color: white;
   font-style: italic;
+}
+
+.comment-section {
+  animation: textShadow 1.6s infinite;
+  color: white;
+  display: none;
+  font: 1.7rem Inconsolata, monospace;
+  margin: 10vh auto;
+  position: relative;
+  width: 70vw;
+  z-index: 0;
+}
+
+.comment-section p {
+  margin: 0;
 }
 
 #map {

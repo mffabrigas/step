@@ -144,7 +144,7 @@ function loadComments(numCommentsDisplayed) {
   }
 
   fetch('/data?numCommentsDisplayed=' + numCommentsDisplayed).then(response => response.json()).then((commentList) => {
-    const commentsContainer = document.getElementById('comment-section');
+    const commentsContainer = document.getElementById('comments');
     commentsContainer.innerHTML = '';
     commentList.forEach((comment) => {
       commentsContainer.appendChild(createCommentElement(comment));
