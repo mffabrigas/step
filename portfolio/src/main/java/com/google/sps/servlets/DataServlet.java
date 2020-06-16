@@ -89,7 +89,7 @@ public class DataServlet extends HttpServlet {
     }
 
     if (numCommentsDisplayed < 1 || numCommentsDisplayed > 10) {
-      System.err.println("Player choice is out of range: " + numCommentsDisplayedString);
+      System.err.println("User choice is out of range: " + numCommentsDisplayedString);
       return MAX_COMMENTS;
     }
 
