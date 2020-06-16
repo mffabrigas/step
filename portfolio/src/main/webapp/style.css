@@ -120,6 +120,17 @@
   margin: 0;
 }
 
+#login {
+  animation: textShadow 1.6s infinite;
+  color: white;
+  display: none;
+  font: 1.7rem Inconsolata, monospace;
+  margin: 10vh auto;
+  position: relative;
+  width: 70vw;
+  z-index: 0;
+}
+
 #map {
   height: 80vh;
   margin: 10vh auto;
