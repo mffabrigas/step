@@ -7,7 +7,7 @@ public final class AuthenticationInfo {
   private final String loginUrl;
   private final String logoutUrl;
 
-  public Task(boolean isLoggedIn, String url) {
+  public AuthenticationInfo(boolean isLoggedIn, String url) {
     this.isLoggedIn = isLoggedIn;
     
     if(isLoggedIn) {
