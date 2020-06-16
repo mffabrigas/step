@@ -11,11 +11,11 @@ public final class AuthenticationInfo {
     this.isLoggedIn = isLoggedIn;
     
     if(isLoggedIn) {
-      this.loginUrl = url;
-      this.logoutUrl = "";
-    } else {
       this.logoutUrl = url;
       this.loginUrl = "";
+    } else {
+      this.loginUrl = url;
+      this.logoutUrl = "";
     }
   }
 }
