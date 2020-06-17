@@ -101,7 +101,7 @@ let darkModeMap = new google.maps.StyledMapType(
 {name: 'Dark Mode'});
 
 function start() {
-  loadComments();
+  checkIfUserIsLoggedIn();
   initMap();
 }
 
@@ -135,6 +135,42 @@ function createMarker(map, position, title) {
   });
 }
 
+function checkIfUserIsLoggedIn() {
+  fetch('/login')
+    .then(response => response.json())
+    .then(userLoginStatus => {
+      if(userLoginStatus.isLoggedIn) {
+        loadWhenLoggedIn(userLoginStatus);
+      } else {
+        loadWhenLoggedOut(userLoginStatus);
+      }
+    });
+}
+
+/**
+ * @param {Object} userLoginStatus JSON object holding login/out url
+ */
+function loadWhenLoggedIn(userLoginStatus) {
+  let loginContainer = document.getElementById('login');
+  let commentsContainer = document.getElementById('comment-section');
+
+  loginContainer.style.display = 'block';
+  loginContainer.appendChild(createLinkElement(userLoginStatus.logoutUrl, 'Logout here'));
+  
+  commentsContainer.style.display = 'block';
+  loadComments();
+}
+
+/**
+ * @param {Object} userLoginStatus JSON object holding login/out url
+ */
+function loadWhenLoggedOut(userLoginStatus) {
+  let loginContainer = document.getElementById('login');
+
+  loginContainer.style.display = 'block';
+  loginContainer.appendChild(createLinkElement(userLoginStatus.loginUrl, 'Login here'));
+}
+
 /**
  * @param {number} numCommentsDisplayed number of comments to display
  */
@@ -143,18 +179,21 @@ function loadComments(numCommentsDisplayed) {
     numCommentsDisplayed = MAX_COMMENTS;
   }
 
-  fetch('/data?numCommentsDisplayed=' + numCommentsDisplayed).then(response => response.json()).then((commentList) => {
-    const commentsContainer = document.getElementById('comments');
-    commentsContainer.innerHTML = '';
-    commentList.forEach((comment) => {
-      commentsContainer.appendChild(createCommentElement(comment));
-    })
-  });
+  fetch('/data?numCommentsDisplayed=' + numCommentsDisplayed)
+    .then(response => response.json())
+    .then((commentList) => {
+      const commentsContainer = document.getElementById('comments');
+      commentsContainer.innerHTML = '';
+      commentList.forEach((comment) => {
+        commentsContainer.appendChild(createCommentElement(comment));
+      });
+    });
 }
 
 function deleteAllComments() {
   const deleteCommentsRequest = new Request('/delete-data', {method: 'POST'});
-  fetch(deleteCommentsRequest).then(response => loadComments());
+  fetch(deleteCommentsRequest)
+    .then(response => loadComments());
 }
 
 /**
@@ -164,6 +203,17 @@ function createCommentElement(text) {
   const listElement = document.createElement('p');
   listElement.innerText = '> ' + text;
   return listElement;
+}
+
+/**
+ * @param {String} url url to be made into a link
+ * @param {String} text text to displayed as link
+ */
+function createLinkElement(url, text) {
+  const linkElement = document.createElement('a');
+  linkElement.href = url;
+  linkElement.innerText = '> ' + text;
+  return linkElement;
 }
 
 setInterval(() => {
