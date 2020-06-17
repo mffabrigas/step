@@ -7,15 +7,17 @@ public final class AuthenticationInfo {
   private final String loginUrl;
   private final String logoutUrl;
 
-  public AuthenticationInfo(boolean isLoggedIn, String url) {
+  public AuthenticationInfo(boolean isLoggedIn, String loginUrl, String logoutUrl) {
     this.isLoggedIn = isLoggedIn;
-    
-    if(isLoggedIn) {
-      this.logoutUrl = url;
-      this.loginUrl = "";
-    } else {
-      this.loginUrl = url;
-      this.logoutUrl = "";
-    }
+    this.loginUrl = loginUrl;
+    this.logoutUrl = logoutUrl;
+  }
+
+  public static AuthenticationInfo createLoggedInInfo(String url) {
+    return new AuthenticationInfo(true, "", url);
+  }
+
+  public static AuthenticationInfo createLoggedOutInfo(String url) {
+    return new AuthenticationInfo(false, url, "");
   }
 }

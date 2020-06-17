@@ -28,18 +28,16 @@ public class HomeServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      boolean isUserLoggedIn = true;
       String redirectAfterLogout = "/";
       String logoutURL = userService.createLogoutURL(redirectAfterLogout);
 
-      AuthenticationInfo userLoginStatus = new AuthenticationInfo(isUserLoggedIn, logoutURL);
+      AuthenticationInfo userLoginStatus = AuthenticationInfo.createLoggedInInfo(logoutURL);
       response.getWriter().println(gson.toJson(userLoginStatus));
     } else {
-      boolean isUserLoggedIn = false;
       String redirectAfterLogin = "/";
       String loginURL = userService.createLoginURL(redirectAfterLogin);
 
-      AuthenticationInfo userLoginStatus = new AuthenticationInfo(isUserLoggedIn, loginURL);
+      AuthenticationInfo userLoginStatus = AuthenticationInfo.createLoggedOutInfo(loginURL);
       response.getWriter().println(gson.toJson(userLoginStatus));
     }
   }
