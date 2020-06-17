@@ -9,6 +9,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.google.sps.data.AuthenticationInfo;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -22,22 +23,22 @@ public class HomeServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html");
+    response.setContentType("application/json");
+    Gson gson = new Gson();
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/";
-      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      String redirectAfterLogout = "/";
+      String logoutURL = userService.createLogoutURL(redirectAfterLogout);
 
-      response.getWriter().println("<p>Hello " + userEmail + "!</p>");
-      response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
+      AuthenticationInfo userLoginStatus = AuthenticationInfo.createLoggedInInfo(logoutURL);
+      response.getWriter().println(gson.toJson(userLoginStatus));
     } else {
-      String urlToRedirectToAfterUserLogsIn = "/";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      String redirectAfterLogin = "/";
+      String loginURL = userService.createLoginURL(redirectAfterLogin);
 
-      response.getWriter().println("<p>Welcome!</p>");
-      response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+      AuthenticationInfo userLoginStatus = AuthenticationInfo.createLoggedOutInfo(loginURL);
+      response.getWriter().println(gson.toJson(userLoginStatus));
     }
   }
 }
