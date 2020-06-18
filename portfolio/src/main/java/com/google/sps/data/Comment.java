@@ -11,11 +11,11 @@ public final class Comment {
     this.commentText = commentText;
   }
 
-  public double getUserEmail() {
+  public String getUserEmail() {
     return userEmail;
   }
 
-  public double getCommentText() {
+  public String getCommentText() {
     return commentText;
   }
 }
