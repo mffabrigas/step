@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
-public class DataServlet extends HttpServlet {
+public class CommentServlet extends HttpServlet {
 
   private static final String CONTENT_TEXT_PROPERTY_NAME ="content";
   private static final String TIMESTAMP_TEXT_PROPERTY_NAME = "timestamp";
