@@ -20,7 +20,10 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -31,10 +34,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
-public class DataServlet extends HttpServlet {
+public class CommentServlet extends HttpServlet {
 
   private static final String CONTENT_TEXT_PROPERTY_NAME ="content";
   private static final String TIMESTAMP_TEXT_PROPERTY_NAME = "timestamp";
+  private static final String USER_EMAIL_TEXT_PROPERTY_NAME = "user-email";
   private static final int MAX_COMMENTS = 10;
 
   @Override
@@ -46,10 +50,12 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    List<String> demoComments = new ArrayList<String>();
+    List<Comment> demoComments = new ArrayList<Comment>();
     for(Entity entity : results.asIterable()) {
-      String commentContent = (String) entity.getProperty(CONTENT_TEXT_PROPERTY_NAME);
-      demoComments.add(commentContent);
+      String commentText = (String) entity.getProperty(CONTENT_TEXT_PROPERTY_NAME);
+      String commentUserEmail = (String) entity.getProperty(USER_EMAIL_TEXT_PROPERTY_NAME);
+
+      demoComments.add(new Comment(commentUserEmail, commentText));
 
       if(demoComments.size() == numCommentsDisplayed)  {
         break;
@@ -64,12 +70,16 @@ public class DataServlet extends HttpServlet {
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+
     String commentText = request.getParameter("write-comment");
     long commentTime = System.currentTimeMillis();
+    String commentUserEmail = userService.getCurrentUser().getEmail();
 
     Entity commentEntity = new Entity("comment");
     commentEntity.setProperty(CONTENT_TEXT_PROPERTY_NAME, commentText);
     commentEntity.setProperty(TIMESTAMP_TEXT_PROPERTY_NAME, commentTime);
+    commentEntity.setProperty(USER_EMAIL_TEXT_PROPERTY_NAME, commentUserEmail);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
