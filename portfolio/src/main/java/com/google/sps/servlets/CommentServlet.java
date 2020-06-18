@@ -50,7 +50,7 @@ public class CommentServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    List<List<String>> demoComments = new ArrayList();
+    List<Comment> demoComments = new ArrayList<Comment>();
     for(Entity entity : results.asIterable()) {
       String commentText = (String) entity.getProperty(CONTENT_TEXT_PROPERTY_NAME);
       String commentUserEmail = (String) entity.getProperty(USER_EMAIL_TEXT_PROPERTY_NAME);
