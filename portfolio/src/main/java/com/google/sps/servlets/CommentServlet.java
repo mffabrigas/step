@@ -23,6 +23,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -51,15 +52,10 @@ public class CommentServlet extends HttpServlet {
 
     List<List<String>> demoComments = new ArrayList();
     for(Entity entity : results.asIterable()) {
-      List<String> commentElementContent = new ArrayList<String>();
-
       String commentText = (String) entity.getProperty(CONTENT_TEXT_PROPERTY_NAME);
       String commentUserEmail = (String) entity.getProperty(USER_EMAIL_TEXT_PROPERTY_NAME);
 
-      commentElementContent.add(commentUserEmail);
-      commentElementContent.add(commentText);
-
-      demoComments.add(commentElementContent);
+      demoComments.add(new Comment(commentUserEmail, commentText));
 
       if(demoComments.size() == numCommentsDisplayed)  {
         break;
