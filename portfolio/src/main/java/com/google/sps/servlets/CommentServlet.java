@@ -49,7 +49,7 @@ public class CommentServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    List demoComments = new ArrayList();
+    List<List<String>> demoComments = new ArrayList();
     for(Entity entity : results.asIterable()) {
       List<String> commentElementContent = new ArrayList<String>();
 
