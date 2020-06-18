@@ -17,6 +17,7 @@ const MAX_COMMENTS = 10;
 const GOOGLE_MTV = {lat: 37.4220041, lng: -122.0862515};
 
 let cursor = true;
+let editMarker;
 let darkModeMap = new google.maps.StyledMapType(
   [
     {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
@@ -115,24 +116,8 @@ function initMap() {
       }
     }
   );
-
   map.mapTypes.set('dark_mode', darkModeMap);
   map.setMapTypeId('dark_mode');
-
-  createMarker(map, GOOGLE_MTV, 'One day...');
-}
-
-/**
- * @param {Object} map Map object created from Google Maps API
- * @param {Object} position object that contains lat and lng coords for marker
- * @param {String} title string that describes the location
-*/
-function createMarker(map, position, title) {
-  const marker = new google.maps.Marker({
-    position: position,
-    map: map,
-    title: title
-  });
 }
 
 function checkIfUserIsLoggedIn() {
@@ -201,7 +186,7 @@ function deleteAllComments() {
  */
 function createCommentElement(content) {
   const listElement = document.createElement('p');
-  listElement.innerText = '> ' + content[0] + ': ' + content[1];
+  listElement.innerText = '> ' + content.userEmail + ': ' + content.commentText;
   return listElement;
 }
 
